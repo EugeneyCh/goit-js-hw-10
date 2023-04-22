@@ -11,16 +11,16 @@ const countryInfo = document.querySelector('.country-info');
 searchBox.addEventListener('input', debounce(checkFetchName, DEBOUNCE_DELAY));
 
 function checkFetchName(evt) {
-  const nameCountryInput = evt.target.value.trim();
-  console.log('Name is;', nameCountryInput, nameCountryInput.length);
-  if (nameCountryInput.length === 0) {
+  const name = evt.target.value.trim();
+  if (name.length === 0) {
     Notiflix.Notify.failure('Your input is empty');
     return;
   }
-  fetchCountries(nameCountryInput).then(checkCountCountry);
+  fetchCountries(name).then(checkCountCountry);
 }
 
 function checkCountCountry(data) {
+  resetForm();
   if (data.length > 10) {
     resetForm();
     Notiflix.Notify.info(
@@ -33,6 +33,7 @@ function checkCountCountry(data) {
         .map(dataItem => markUpManyCountries(dataItem))
         .join(' ');
     } else {
+      resetForm();
       let markupOne = data
         .map(dataItem => markUpOneCountry(dataItem))
         .join(' ');
@@ -51,16 +52,13 @@ function markUpManyCountries({ name, flags }) {
 }
 
 function markUpOneCountry({ name, capital, population, flags, languages }) {
-  const markupItemOne = `
-  <div class="list-propertises">
-    <span class="name-official"><img src='${flags.svg}' alt='${
-    flags.alt
-  }' width="50"></img>  ${name.official}</span>
-    <span >Capital: ${capital[0]}</span>
-    <span>Population: ${population}</span>
-    <span>Languages: ${Object.values(languages).join(', ')}</span>
+    const markupItemOne = `
+    <div class="list-propertises">
+        <span class="name-official"><img src='${flags.svg}'alt='${flags.alt}' width="50"></img>  ${name.official}</span>
+        <span >Capital: ${capital[0]}</span>
+        <span>Population: ${population}</span>
+        <span>Languages: ${Object.values(languages).join(', ')}</span>
   </div>
     `;
-  resetForm();
   countryInfo.innerHTML = markupItemOne;
 }
