@@ -21,6 +21,9 @@ function checkFetchName(evt) {
 
 function checkCountCountry(data) {
   resetForm();
+  if (data === null) {
+    return;
+  }
   if (data.length > 10) {
     resetForm();
     Notiflix.Notify.info(
