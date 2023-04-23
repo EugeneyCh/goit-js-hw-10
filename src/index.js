@@ -21,7 +21,7 @@ function checkFetchName(evt) {
 
 function checkCountCountry(data) {
   resetForm();
-  if (data === 0) {
+  if (data.length === 0) {
     return;
   }
   if (data.length > 10) {
@@ -36,10 +36,14 @@ function checkCountCountry(data) {
         .map(dataItem => markUpManyCountries(dataItem))
         .join(' ');
     } else {
-      resetForm();
-      let markupOne = data
-        .map(dataItem => markUpOneCountry(dataItem))
-        .join(' ');
+      if (data.length === 1) {
+        console.log(data);
+        console.log(data.length);
+        resetForm();
+        let markupOne = data
+          .map(dataItem => markUpOneCountry(dataItem))
+          .join(' ');
+      }
     }
   }
 }
@@ -55,9 +59,11 @@ function markUpManyCountries({ name, flags }) {
 }
 
 function markUpOneCountry({ name, capital, population, flags, languages }) {
-    const markupItemOne = `
+  const markupItemOne = `
     <div class="list-propertises">
-        <span class="name-official"><img src='${flags.svg}'alt='${flags.alt}' width="50"></img>  ${name.official}</span>
+        <span class="name-official"><img src='${flags.svg}'alt='${
+    flags.alt
+  }' width="50"></img>  ${name.official}</span>
         <span >Capital: ${capital[0]}</span>
         <span>Population: ${population}</span>
         <span>Languages: ${Object.values(languages).join(', ')}</span>
