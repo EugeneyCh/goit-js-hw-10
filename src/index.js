@@ -21,7 +21,7 @@ function checkFetchName(evt) {
 
 function checkCountCountry(data) {
   resetForm();
-  if (data === null) {
+  if (data === 0) {
     return;
   }
   if (data.length > 10) {
