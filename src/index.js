@@ -21,9 +21,6 @@ function checkFetchName(evt) {
 
 function checkCountCountry(data) {
   resetForm();
-  // if (error) {
-  //   return;
-  // }
   if (data.length > 10) {
     resetForm();
     Notiflix.Notify.info(
@@ -37,8 +34,6 @@ function checkCountCountry(data) {
         .join(' ');
     } else {
       if (data.length === 1) {
-        console.log(data);
-        console.log(data.length);
         resetForm();
         let markupOne = data
           .map(dataItem => markUpOneCountry(dataItem))
