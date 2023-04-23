@@ -15,6 +15,7 @@ export default function fetchCountries(name) {
     })
     .catch(error => {
       Notiflix.Notify.failure('Oops, there is no country with that name');
-      return data = null;
+      data = null;
+      return data ;
     });
 }
